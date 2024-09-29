@@ -1,27 +1,28 @@
 import { Box, Button, Stack, TextField, Snackbar } from "@mui/material";
 import React, { useState } from "react";
 
-type SubmitCatProps = {
-  fetchCats: () => void;
+type SubmitTodoProps = {
+  fetchTodos: () => void;
 };
 
-const SubmitCat = ({ fetchCats }: SubmitCatProps) => {
-  const [name, setName] = useState("");
+const SubmitTodo = ({ fetchTodos }: SubmitTodoProps) => {
+  const [title, setTitle] = useState("");
+  const [priority, setPriority] = useState<number | null>(1);
   const [open, setOpen] = useState(false);
 
   const handleSnackbarClose = () => {
     setOpen(false);
   };
 
-  const submitCat = async () => {
+  const submitTodo = async () => {
     try {
-      const response = await fetch("http://localhost:8080/cats", {
+      const response = await fetch("http://localhost:8080/todos", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ title, priority }),
       });
 
       if (response.ok) {
@@ -34,9 +35,10 @@ const SubmitCat = ({ fetchCats }: SubmitCatProps) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    submitCat();
-    setTimeout(fetchCats, 100);
-    setName(""); // Clear input after submit
+    submitTodo();
+    setTimeout(fetchTodos, 100);
+    setTitle(""); // Clear input after submit
+    setPriority(1); // Reset priority after submit
   };
 
   return (
@@ -44,9 +46,15 @@ const SubmitCat = ({ fetchCats }: SubmitCatProps) => {
       <form onSubmit={handleSubmit}>
         <Stack>
           <TextField
-            label="Cat name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+            label="Todo title"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
+          <TextField
+            type="number"
+            label="Priority"
+            value={priority || ""}
+            onChange={(event) => setPriority(Number(event.target.value))}
           />
           <Button type="submit">Add</Button>
         </Stack>
@@ -54,11 +62,11 @@ const SubmitCat = ({ fetchCats }: SubmitCatProps) => {
       <Snackbar
         open={open}
         onClose={handleSnackbarClose}
-        message="Cat added successfully!"
+        message="TODO added successfully!"
         autoHideDuration={3000}
       />
     </Box>
   );
 };
 
-export default SubmitCat;
+export default SubmitTodo;
