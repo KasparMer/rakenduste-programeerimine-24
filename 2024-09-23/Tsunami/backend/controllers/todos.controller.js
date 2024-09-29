@@ -1,18 +1,18 @@
 const todos = [];
 
 exports.create = (req, res) => {
-  const { content } = req.body;
+  const { title, priority } = req.body;
 
-  if (!content || content === "") {
+  if (!title || title === "") {
     return res
       .status(418)
-      .send({ type: "Error", message: "Must include content" });
+      .send({ type: "Error", message: "Must include a title" });
   }
 
   const newTodo = {
-    id: crypto.randomUUID(),
-    content,
-    completed: false,
+    id: todos.length + 1, // Assuming you want a numeric ID
+    title,
+    priority: priority || 1, // Default priority if none is provided
     createdAt: Date.now(),
     updatedAt: null,
     deleted: false,
@@ -27,18 +27,18 @@ exports.read = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  const { id, content, completed } = req.body;
+  const { id, title, priority } = req.body;
 
   const todo = todos.find(todo => todo.id === id);
   if (!todo) {
     return res.status(404).send({ type: "Error", message: "Todo not found" });
   }
 
-  if (content && content !== "") {
-    todo.content = content;
+  if (title && title !== "") {
+    todo.title = title;
   }
-  if (typeof completed === "boolean") {
-    todo.completed = completed;
+  if (priority) {
+    todo.priority = priority;
   }
   todo.updatedAt = Date.now();
 
