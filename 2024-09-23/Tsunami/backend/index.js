@@ -12,10 +12,12 @@ app.use(express.json());
 const catsRoutes = require("./routes/cats.routes");
 const todosRoutes = require("./routes/todos.routes");
 const exampleRoutes = require("./routes/example.routes");
+const authRoutes = require("./routes/auth.routes"); // JWT routes
 
 app.use("/cats", catsRoutes);
 app.use("/todos", todosRoutes);
 app.use("/examples", exampleRoutes);
+app.use("/auth", authRoutes); // JWT routes
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
