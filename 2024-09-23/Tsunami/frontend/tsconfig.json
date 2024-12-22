@@ -1,26 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "target": "es6",                        // Tõlkimise siht (kasuta kaasaegsemat ES6)
+    "lib": ["dom", "dom.iterable", "esnext"], // Toetavad standardite komplektid
+    "allowJs": true,                       // Võimaldab JavaScripti faile
+    "skipLibCheck": true,                  // Jätab vahele tüübikontrolli sõltuvustes
+    "esModuleInterop": true,               // Toetab importide ühilduvust
+    "allowSyntheticDefaultImports": true,  // Võimaldab vaikimisi impordi
+    "strict": true,                        // Aktiveerib range tüüpkontrolli
+    "forceConsistentCasingInFileNames": true, // Tundlik failinimede suur- ja väiketähe osas
+    "noFallthroughCasesInSwitch": true,    // Väldib switch-juhtumite läbikukkumist
+    "module": "esnext",                    // Kasutab kaasaegset ESNext moodulit
+    "moduleResolution": "node",            // Resolveerib moodulid Node.js reeglite järgi
+    "resolveJsonModule": true,             // Võimaldab JSON-failide impordi
+    "isolatedModules": true,               // Üksikute moodulite kontroll
+    "noEmit": true,                        // Ei loo kompileeritud faile
+    "jsx": "react-jsx",                     // React-i JSX tugi (React 17+ jaoks)
+    "types": ["jest"]
   },
   "include": [
-    "src"
+    "src"                                  // Kaasatakse ainult `src` kaust
   ]
 }
